@@ -3,7 +3,7 @@ Este proyecto instala una BBDD con MariaDB y un frontend web con html + CSS + ph
 
 ## Instalacion
 ### Requisitos
-* Ubuntu Server 22.04 (seguramente funcione en otras verrsiones sin problema, pero aqui fue testeado y 100% funcional)
+* Ubuntu Server 22.04 o 24.04 (seguramente funcione en otras versiones sin problema, pero aqui fue testeado y 100% funcional)
 * Conexion a internet para descargar el material
 
 

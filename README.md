@@ -14,6 +14,6 @@ Copiar y pegar los siguientes comandos en el terminal
 sudo apt update && sudo apt upgrade -y
 sudo apt install git zip unzip -y
 git clone https://github.com/glmbxecurity/inventario.git
-sudo unzip ./inventario/inventario_files.zip -d /
+
 
 ```

@@ -13,6 +13,8 @@ Copiar y pegar los siguientes comandos en el terminal
 sudo apt update && sudo apt upgrade -y
 sudo apt install git zip unzip wget -y
 git clone https://github.com/glmbxecurity/inventario.git
+chmod +x inventario/install.sh
+sudo bash ./inventario/install.sh
 
 
 ```

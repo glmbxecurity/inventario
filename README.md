@@ -15,6 +15,6 @@ sudo apt install git zip unzip wget -y
 git clone https://github.com/glmbxecurity/inventario.git
 chmod +x inventario/install.sh
 sudo bash ./inventario/install.sh
-
+sudo rm /var/www/index.html
 
 ```

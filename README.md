@@ -33,9 +33,9 @@ En la propia web, en el apartado de ayuda se puede:
 * Importar, exportar y vaciar datos de la BBDD
 
 ![image](https://raw.githubusercontent.com/glmbxecurity/inventario/refs/heads/main/images/1_inicio.png)
-![image]()
-![image]()
-![image]()
-![image]()
-![image]()
-![image]()
+![image](https://raw.githubusercontent.com/glmbxecurity/inventario/refs/heads/main/images/2_busqueda.png)
+![image](https://raw.githubusercontent.com/glmbxecurity/inventario/refs/heads/main/images/3_agregar.png)
+![image](https://raw.githubusercontent.com/glmbxecurity/inventario/refs/heads/main/images/4_export_csv.png)
+![image](https://raw.githubusercontent.com/glmbxecurity/inventario/refs/heads/main/images/5_export_pdf.png)
+![image](https://raw.githubusercontent.com/glmbxecurity/inventario/refs/heads/main/images/6_export_pdf_relevo.png)
+![image](https://raw.githubusercontent.com/glmbxecurity/inventario/refs/heads/main/images/7_pdf.png)

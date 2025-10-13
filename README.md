@@ -12,7 +12,7 @@ Este proyecto instala una BBDD con MariaDB y un frontend web con html + CSS + ph
 Copiar y pegar los siguientes comandos en el terminal
 ```
 sudo apt update && sudo apt upgrade -y
-sudo apt install git zip unzip -y
+sudo apt install git zip unzip wget -y
 git clone https://github.com/glmbxecurity/inventario.git
 
 

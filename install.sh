@@ -6,8 +6,6 @@ set -euo pipefail
 # ---------------------------
 WEB_ROOT="/var/www/html"
 DB_NAME="inventario"
-DB_USER="webuser"
-DB_PASS="tu_password"
 ARCHIVE_URL="https://archive.org/download/inventario_files/inventario_files.zip"
 TMP_DIR="/tmp/inventario_install_$$"
 TMP_UNZIP="$TMP_DIR/unzip"
@@ -69,6 +67,13 @@ chown -R www-data:www-data "$WEB_ROOT"
 chmod -R 755 "$WEB_ROOT"
 
 # ---------------------------
+# Solicitar credenciales de DB
+# ---------------------------
+read -p "Introduce el nombre de usuario de la base de datos: " DB_USER
+read -sp "Introduce la contraseña de la base de datos: " DB_PASS
+echo
+
+# ---------------------------
 # Crear base de datos y tabla
 # ---------------------------
 info "Creando base de datos y usuario en MariaDB..."
@@ -103,12 +108,33 @@ CREATE TABLE IF NOT EXISTS dispositivos (
 EOF
 )
 
-# Ejecutar SQL con sudo para evitar problemas de autenticación
 sudo mysql <<EOF
 $SQL
 EOF
 
 info "Base de datos y tabla creadas correctamente."
+
+# ---------------------------
+# Crear db.php con las credenciales
+# ---------------------------
+info "Generando archivo db.php con las credenciales proporcionadas..."
+cat > "$WEB_ROOT/db.php" <<EOF
+<?php
+\$host = "localhost";
+\$user = "${DB_USER}";
+\$pass = "${DB_PASS}";
+\$dbname = "${DB_NAME}";
+
+\$conn = new mysqli(\$host, \$user, \$pass, \$dbname);
+if (\$conn->connect_error) {
+    die("Conexión fallida: " . \$conn->connect_error);
+}
+\$conn->set_charset("utf8");
+?>
+EOF
+
+chown www-data:www-data "$WEB_ROOT/db.php"
+chmod 640 "$WEB_ROOT/db.php"
 
 # ---------------------------
 # Reiniciar servicios

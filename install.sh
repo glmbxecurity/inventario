@@ -48,9 +48,18 @@ wget -O "$TMP_DIR/inventario_files.zip" "$ARCHIVE_URL"
 # ---------------------------
 # Descomprimir correctamente
 # ---------------------------
-info "Descomprimiendo zip y copiando archivos a $WEB_ROOT..."
+info "Descomprimiendo zip..."
 unzip -q "$TMP_DIR/inventario_files.zip" -d "$TMP_UNZIP"
-rsync -a "$TMP_UNZIP/var/www/html/" "$WEB_ROOT/"
+
+# Detectar estructura del ZIP
+if [ -d "$TMP_UNZIP/html" ]; then
+    RSYNC_SRC="$TMP_UNZIP/html/"
+else
+    RSYNC_SRC="$TMP_UNZIP/"
+fi
+
+info "Copiando archivos a $WEB_ROOT..."
+rsync -a "$RSYNC_SRC" "$WEB_ROOT/"
 
 # ---------------------------
 # Ajustar permisos
@@ -94,12 +103,12 @@ CREATE TABLE IF NOT EXISTS dispositivos (
 EOF
 )
 
-if mysql -u root -e "SELECT 1;" >/dev/null 2>&1; then
-    mysql -u root -e "$SQL"
-    info "Base de datos y tabla creadas correctamente."
-else
-    err "No se pudo conectar a MariaDB como root sin contraseña. Ejecuta 'sudo mysql' para configurar."
-fi
+# Ejecutar SQL con sudo para evitar problemas de autenticación
+sudo mysql <<EOF
+$SQL
+EOF
+
+info "Base de datos y tabla creadas correctamente."
 
 # ---------------------------
 # Reiniciar servicios

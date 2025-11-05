@@ -82,11 +82,18 @@ chown -R www-data:www-data "$WEB_ROOT"
 chmod -R 755 "$WEB_ROOT"
 
 # ---------------------------
-# Solicitar credenciales de DB
+# Credenciales de base de datos
 # ---------------------------
-read -p "Introduce el nombre de usuario de la base de datos: " DB_USER
-read -sp "Introduce la contraseña de la base de datos: " DB_PASS
-echo
+if [ -z "${DB_USER:-}" ]; then
+  read -p "Introduce el nombre de usuario de la base de datos: " DB_USER
+fi
+
+if [ -z "${DB_PASS:-}" ]; then
+  read -sp "Introduce la contraseña de la base de datos: " DB_PASS
+  echo
+fi
+
+DB_NAME=${DB_NAME:-inventario}
 
 # ---------------------------
 # Crear base de datos y usuario

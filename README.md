@@ -20,40 +20,6 @@ sudo rm /var/www/html/index.html
 ### Instalacion en Docker
 Si lo quieres instalar en un docker, por querer hacerlo exportable, por ejemplo, usa estos comandos:  
 
-##### Crear dockerfile
-crea un directorio, y dentro de este el fichero Dockerfile con el siguiente contenido:  
-```bash
-# Imagen base: Ubuntu Server 24.04 (Noble)
-FROM ubuntu:24.04
-
-# Evitar prompts interactivos
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Actualizar el sistema base
-RUN apt update && apt upgrade -y && apt install -y \
-    sudo \
-    vim \
-    curl \
-    wget \
-    net-tools \
-    && apt clean
-
-# Comando por defecto
-CMD ["bash"]
-
-```
-##### Crear el docker como tal
-```bash
-docker build -t ubuntu24:base .
-
-# Verificar la imagen
-docker images
-
-# Lanzar contenedor y entrar a personalizar
-docker run -it ubuntu24:base
-```
-##### Instalar en docker (opcional)
-Instalar el serivicio en el docker:  
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install git zip unzip wget -y
@@ -62,38 +28,6 @@ chmod +x inventario/install_in_docker.sh
 sudo bash ./inventario/install_in_docker.sh
 sudo rm /var/www/html/index.html
 ```
-### Exportar e Importar docker
-Si quieres exportar el docker para poderlo llevar a otro entorno, debes hacer lo siguiente:
-
-```bash
-# Comprobar el id del contendor
-docker ps -a
-
-# Crear la imagen docker
-docker commit abcd1234efgh ubuntu24:custom
-
-# Exportar la imagen a un fichero tar
-docker save -o ubuntu24_custom.tar ubuntu24:custom
-
-# Importar la imagen en otro entorno
-docker load -i ubuntu24_custom.tar
-
-# lanzar el contenedor de la imagen customizada
-docker run -it ubuntu24:custom
-```
-
-#### lanzar el contenedor de la imagen customizada con datos persistentes
-Nos interesa realmente la BBDD en este caso. Para ello debemos crear un directorio en el host para tal efecto,  
-y luego lanzar el contenedor de la siguiente manera:  
-```bash
-docker run -d \
-  --name inventario_db \
-  --restart unless-stopped \
-  -v /home/admin/inventario/bbdd:/var/lib/mysql \
-  ubuntu24:custom
-```
-
-
 
 ## Como exportar e importar datos a la BBBDD
 En la propia web, en el apartado de ayuda se puede:

@@ -72,6 +72,7 @@ else
 fi
 
 info "Copiando archivos a $WEB_ROOT..."
+rm -f "$WEB_ROOT/index.html"
 rsync -a "$RSYNC_SRC" "$WEB_ROOT/"
 
 # ---------------------------

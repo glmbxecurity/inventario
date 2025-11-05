@@ -7,7 +7,7 @@ Este proyecto instala una BBDD con MariaDB y un frontend web con html + CSS + ph
 * Conexion a internet para descargar el material
 
 
-### Instalacion
+### Instalacion en MV, LXC, Baremetal
 Copiar y pegar los siguientes comandos en el terminal
 ```
 sudo apt update && sudo apt upgrade -y
@@ -15,6 +15,51 @@ sudo apt install git zip unzip wget -y
 git clone https://github.com/glmbxecurity/inventario.git
 chmod +x inventario/install.sh
 sudo bash ./inventario/install.sh
+sudo rm /var/www/html/index.html
+```
+### Instalacion en Docker
+Si lo quieres instalar en un docker, por querer hacerlo exportable, por ejemplo, usa estos comandos:  
+
+##### Crear dockerfile
+crea un directorio, y dentro de este el fichero Dockerfile con el siguiente contenido:  
+```bash
+# Imagen base: Ubuntu Server 24.04 (Noble)
+FROM ubuntu:24.04
+
+# Evitar prompts interactivos
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Actualizar el sistema base
+RUN apt update && apt upgrade -y && apt install -y \
+    sudo \
+    vim \
+    curl \
+    wget \
+    net-tools \
+    && apt clean
+
+# Comando por defecto
+CMD ["bash"]
+
+```
+##### Crear el docker como tal
+```bash
+docker build -t ubuntu24:base .
+
+# Verificar la imagen
+docker images
+
+# Lanzar contenedor y entrar a personalizar
+docker run -it ubuntu24:base
+```
+##### Instalar en docker
+Instalar el serivicio en el docker:  
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install git zip unzip wget -y
+git clone https://github.com/glmbxecurity/inventario.git
+chmod +x inventario/install_in_docker.sh
+sudo bash ./inventario/install_in_docker.sh
 sudo rm /var/www/html/index.html
 ```
 

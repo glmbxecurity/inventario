@@ -22,7 +22,7 @@ sudo rm /var/www/html/index.html
 
 ```bash
 docker pull eddygalamba/inventario:ubuntu24
-docker run <container_id>
+docker run 
 ```
 
 #### Con memoria persistente

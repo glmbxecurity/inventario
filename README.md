@@ -31,7 +31,7 @@ docker volume create inventario_db
 docker run -d --network=host \
   --name inventario_app \
   -v inventario_db:/var/lib/mysql \
-  inventario:ubuntu24
+  eddygalamba/inventario:ubuntu24
 ```
 
 ## Como exportar e importar datos a la BBBDD

@@ -18,15 +18,20 @@ sudo bash ./inventario/install.sh
 sudo rm /var/www/html/index.html
 ```
 ### Instalacion en Docker
-Si lo quieres instalar en un docker, por querer hacerlo exportable, por ejemplo, usa estos comandos:  
+
 
 ```bash
-sudo apt update && sudo apt upgrade -y
-sudo apt install git zip unzip wget -y
-git clone https://github.com/glmbxecurity/inventario.git
-chmod +x inventario/install_in_docker.sh
-sudo bash ./inventario/install_in_docker.sh
-sudo rm /var/www/html/index.html
+docker pull eddygalamba/inventario:ubuntu24
+docker run <container_id>
+```
+
+#### Con memoria persistente
+```bash
+docker volume create inventario_db
+docker run -d --network=host \
+  --name inventario_app \
+  -v inventario_db:/var/lib/mysql \
+  inventario:ubuntu24
 ```
 
 ## Como exportar e importar datos a la BBBDD
